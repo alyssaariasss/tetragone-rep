@@ -58,11 +58,27 @@ public class TetroBlock : MonoBehaviour
                 transform.position -= new Vector3(0, -1, 0);
                 AddToGrid();
                 DeleteRow();
+
+                if (FindObjectOfType<Game>().IsAboveGrid(this))
+                {
+                    FindObjectOfType<Game>().GameOver();
+                }
                 this.enabled = false;
                 FindObjectOfType<SpawnTetromino>().NewTetromino();
             }
-            
             prevTime = Time.time;
+        }
+    }
+
+    void AddToGrid()
+    {
+        foreach (Transform children in transform)
+        {
+            int roundX = Mathf.RoundToInt(children.transform.position.x);
+            int roundY = Mathf.RoundToInt(children.transform.position.y);
+
+            if (roundY < height)
+                grid[roundX, roundY] = children;
         }
     }
 
@@ -70,7 +86,7 @@ public class TetroBlock : MonoBehaviour
 
     bool IsFullRow(int y)
     {
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < width; ++x)
         {
             if (grid[x, y] == null)
                 return false;
@@ -80,7 +96,7 @@ public class TetroBlock : MonoBehaviour
 
     void DeleteLine(int y)
     {
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < width; ++x)
         {
             Destroy(grid[x, y].gameObject);
             grid[x, y] = null;
@@ -89,7 +105,7 @@ public class TetroBlock : MonoBehaviour
 
     void RowDown(int y)
     {
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < width; ++x)
         {
             if (grid[x, y] != null)
             {
@@ -102,7 +118,7 @@ public class TetroBlock : MonoBehaviour
 
     void MoveAllRows(int y)
     {
-        for (int i = y; i < height; i++)
+        for (int i = y; i < height; ++i)
         {
             RowDown(i);
         }
@@ -110,7 +126,7 @@ public class TetroBlock : MonoBehaviour
 
     void DeleteRow()
     {
-        for (int y = 0; y < height; y++)
+        for (int y = 0; y < height; ++y)
         {
             if (IsFullRow(y))
             {
@@ -120,18 +136,6 @@ public class TetroBlock : MonoBehaviour
             }
         }
     }
-
-    void AddToGrid()
-    {
-        foreach (Transform children in transform)
-        {
-            int roundedX = Mathf.RoundToInt(children.transform.position.x);
-            int roundedY = Mathf.RoundToInt(children.transform.position.y);
-
-            grid[roundedX, roundedY] = children;
-        }
-    }
-   
 
     bool ValidMove()
     {
@@ -147,9 +151,7 @@ public class TetroBlock : MonoBehaviour
 
             if (grid[roundedX, roundedY] != null)
                 return false;
-          
         }
-
         return true;
     }
 }
