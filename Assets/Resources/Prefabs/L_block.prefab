@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 7481319999861429485}
   - component: {fileID: -63321002635566322}
   m_Layer: 0
-  m_Name: 'L block '
+  m_Name: L_block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallTime: 0.8
-  rotPoint: {x: 0, y: 0, z: 0}
+  rotPoint: {x: 1, y: 0, z: 0}
 --- !u!1 &2902194849823263368
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,14 +7,13 @@ public class TetroBlock : MonoBehaviour
 
     private float prevTime;
     public float fallTime = 0.8f;
+
     public static int height = 20;
     public static int width = 10;
+
     public Vector3 rotPoint;
+
     private static Transform[,] grid = new Transform[width, height];
-    
-
-  
-
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +46,8 @@ public class TetroBlock : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             transform.RotateAround(transform.TransformPoint(rotPoint), new Vector3(0, 0, 1), 90);
+            if (!ValidMove())
+                transform.RotateAround(transform.TransformPoint(rotPoint), new Vector3(0, 0, 1), -90);
         }
 
         else if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) || Time.time - prevTime >= fallTime)
@@ -56,7 +57,7 @@ public class TetroBlock : MonoBehaviour
             {
                 transform.position -= new Vector3(0, -1, 0);
                 AddToGrid();
-                CheckForLines();
+                DeleteRow();
                 this.enabled = false;
                 FindObjectOfType<SpawnTetromino>().NewTetromino();
             }
@@ -65,50 +66,57 @@ public class TetroBlock : MonoBehaviour
         }
     }
 
-    void CheckForLines()
+    // for clearing rows
+
+    bool IsFullRow(int y)
     {
-        for (int i = height-1; i >= 0; i--)
+        for (int x = 0; x < width; x++)
         {
-            if (HasLine(i))
+            if (grid[x, y] == null)
+                return false;
+        }
+        return true;
+    }
+
+    void DeleteLine(int y)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            Destroy(grid[x, y].gameObject);
+            grid[x, y] = null;
+        }
+    }
+
+    void RowDown(int y)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            if (grid[x, y] != null)
             {
-                DeleteLine(i);
-                RowDown(i);
+                grid[x, y-1] = grid[x, y];
+                grid[x, y] = null;
+                grid[x, y-1].position += new Vector3(0, -1, 0);
             }
         }
     }
 
-    bool HasLine(int i)
+    void MoveAllRows(int y)
     {
-        for(int j = 0; j< width; j++)
+        for (int i = y; i < height; i++)
         {
-            if (grid[j, i] == null)
-                return false;
-        }
-
-        return true;
-    }
-
-    void DeleteLine(int i)
-    {
-        for (int j = 0; j < width; j++)
-        {
-            Destroy(grid[j, i].gameObject);
-            grid[j, i] = null;
+            RowDown(i);
         }
     }
 
-    void RowDown(int i)
+    void DeleteRow()
     {
-        for (int y = i; y < height; y++)
+        for (int y = 0; y < height; y++)
         {
-            for (int j = 0; j < width; j++)
+            if (IsFullRow(y))
             {
-                if(grid[j,y] != null)
-                {
-                    grid[j, y - 1] = grid[j, y];
-                    grid[j, y] = null;
-                    grid[j, y - 1].transform.position -= new Vector3(0, 1, 0);
-                }
+                DeleteLine(y);
+                MoveAllRows(y+1);
+                y--;
             }
         }
     }
