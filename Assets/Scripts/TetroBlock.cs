@@ -13,8 +13,6 @@ public class TetroBlock : MonoBehaviour
 
     public Vector3 rotPoint;
 
-    private static Transform[,] grid = new Transform[width, height];
-
     // Start is called before the first frame update
     void Start()
     {
@@ -53,103 +51,36 @@ public class TetroBlock : MonoBehaviour
         else if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) || Time.time - prevTime >= fallTime)
         {
             transform.position += new Vector3(0, -1, 0);
-            if (!ValidMove())
+            if(!ValidMove())
             {
                 transform.position -= new Vector3(0, -1, 0);
-                AddToGrid();
-                DeleteRow();
+                FindObjectOfType<Game>().DeleteRow();
 
                 if (FindObjectOfType<Game>().IsAboveGrid(this))
                 {
                     FindObjectOfType<Game>().GameOver();
                 }
+
                 this.enabled = false;
                 FindObjectOfType<SpawnTetromino>().NewTetromino();
+            }
+            else
+            {
+                FindObjectOfType<Game>().UpdateGrid(this);
             }
             prevTime = Time.time;
         }
     }
 
-    void AddToGrid()
-    {
-        foreach (Transform children in transform)
-        {
-            int roundX = Mathf.RoundToInt(children.transform.position.x);
-            int roundY = Mathf.RoundToInt(children.transform.position.y);
-
-            if (roundY < height)
-                grid[roundX, roundY] = children;
-        }
-    }
-
-    // for clearing rows
-
-    bool IsFullRow(int y)
-    {
-        for (int x = 0; x < width; ++x)
-        {
-            if (grid[x, y] == null)
-                return false;
-        }
-        return true;
-    }
-
-    void DeleteLine(int y)
-    {
-        for (int x = 0; x < width; ++x)
-        {
-            Destroy(grid[x, y].gameObject);
-            grid[x, y] = null;
-        }
-    }
-
-    void RowDown(int y)
-    {
-        for (int x = 0; x < width; ++x)
-        {
-            if (grid[x, y] != null)
-            {
-                grid[x, y-1] = grid[x, y];
-                grid[x, y] = null;
-                grid[x, y-1].position += new Vector3(0, -1, 0);
-            }
-        }
-    }
-
-    void MoveAllRows(int y)
-    {
-        for (int i = y; i < height; ++i)
-        {
-            RowDown(i);
-        }
-    }
-
-    void DeleteRow()
-    {
-        for (int y = 0; y < height; ++y)
-        {
-            if (IsFullRow(y))
-            {
-                DeleteLine(y);
-                MoveAllRows(y+1);
-                y--;
-            }
-        }
-    }
-
     bool ValidMove()
     {
-        foreach (Transform children in transform)
+        foreach (Transform block in transform)
         {
-            int roundedX = Mathf.RoundToInt(children.transform.position.x);
-            int roundedY = Mathf.RoundToInt(children.transform.position.y);
+            Vector2 pos = FindObjectOfType<Game>().Round(block.position);
 
-            if (roundedX < 0 || roundedX >= width || roundedY < 0 || roundedY >= height)
-            {
+            if (FindObjectOfType<Game>().IsInsideGrid(pos) == false)
                 return false;
-            }
-
-            if (grid[roundedX, roundedY] != null)
+            if (FindObjectOfType<Game>().GetTransformAtGrid(pos) != null && FindObjectOfType<Game>().GetTransformAtGrid(pos).parent != transform)
                 return false;
         }
         return true;
