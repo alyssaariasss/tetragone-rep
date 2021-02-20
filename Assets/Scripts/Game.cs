@@ -27,7 +27,6 @@ public class Game : MonoBehaviour
     // for tracking lines cleared 
     private int RowsCleared = 0;
 
-
     void Update()
     {
         UpdateScore();
@@ -178,6 +177,20 @@ public class Game : MonoBehaviour
             return null;
         else
             return grid[(int)pos.x, (int)pos.y];
+    }
+
+    // validate position of block for instantiating and swapping positions
+    public bool IsValidPos(GameObject tetroblock)
+    {
+        foreach (Transform block in tetroblock.transform)
+        {
+            Vector2 pos = Round(block.position);
+            if (!IsInsideGrid(pos))
+                return false;
+            if (GetTransformAtGrid(pos) != null && GetTransformAtGrid(pos).parent != tetroblock.transform)
+               return false;
+        }
+        return true;
     }
 
     // checks x and y position of the blocks

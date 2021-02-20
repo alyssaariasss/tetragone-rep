@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class TetroBlock : MonoBehaviour
 {
-
     private float prevTime;
     public float fallTime = 0.8f;
 
-    public static int height = 20;
-    public static int width = 10;
+    // for smooth user controls
+    public float verticalSpeed = 0.05f;
+    public float horizontalSpeed = 0.1f;
+
+    private float verticalTimer = 0;
+    public float horizontalTimer = 0;
 
     public Vector3 rotPoint;
 
@@ -48,10 +51,24 @@ public class TetroBlock : MonoBehaviour
                 transform.RotateAround(transform.TransformPoint(rotPoint), new Vector3(0, 0, 1), -90);
         }
 
-        else if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) || Time.time - prevTime >= fallTime)
+        else if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) || Time.time - prevTime >= fallTime)
         {
+            // for delaying movement of blocks
+            if (horizontalTimer < horizontalSpeed)
+            {
+                horizontalTimer += Time.deltaTime; 
+                return;
+            }
+
+            if (verticalTimer < verticalSpeed)
+            {
+                verticalTimer += Time.deltaTime; 
+                return;
+            }
+            verticalTimer = 0;
+
             transform.position += new Vector3(0, -1, 0);
-            if(!ValidMove())
+            if (!ValidMove())
             {
                 transform.position -= new Vector3(0, -1, 0);
                 FindObjectOfType<Game>().DeleteRow();
@@ -62,6 +79,7 @@ public class TetroBlock : MonoBehaviour
                 }
 
                 this.enabled = false;
+                tag = "Untagged";
                 FindObjectOfType<SpawnTetromino>().NewTetromino();
             }
             else
@@ -70,6 +88,13 @@ public class TetroBlock : MonoBehaviour
             }
             prevTime = Time.time;
         }
+        
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject tempNextBlock = GameObject.FindGameObjectWithTag("activeBlock");
+            FindObjectOfType<SpawnTetromino>().SaveBlock(tempNextBlock.transform);
+        }
+
     }
 
     bool ValidMove()
