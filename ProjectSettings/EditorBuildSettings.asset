@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Options.unity
     guid: 6205cb3cb1e889c4aa29578ab4ccd433
   - enabled: 1
-    path: Assets/Scenes/Level.unity
+    path: Assets/Scenes/EasyLevel1.unity
     guid: 491ec2c1ac9613c4d9d3dc4706ae7046
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
@@ -29,4 +29,31 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EasyMode.unity
     guid: d60d2191efec92a4d8f9d15a524cf482
+  - enabled: 1
+    path: Assets/Scenes/MediumMode.unity
+    guid: eaf8a327428be0548aebcb6b8c256c0a
+  - enabled: 1
+    path: Assets/Scenes/EasyLevel2.unity
+    guid: 88e721a842391d7428690d0519864c12
+  - enabled: 1
+    path: Assets/Scenes/EasyLevel3.unity
+    guid: f1f38250361ff9a4e9ae5cd2a6016970
+  - enabled: 1
+    path: Assets/Scenes/MediumLevel1.unity
+    guid: 95752fc022002af4084b813f2403cf46
+  - enabled: 1
+    path: Assets/Scenes/MediumLevel2.unity
+    guid: d3f34d5a3c33dcb4ebdd38dd2f12de42
+  - enabled: 1
+    path: Assets/Scenes/MediumLevel3.unity
+    guid: 8481c01e51be3d641b73f269b0801d82
+  - enabled: 1
+    path: Assets/Scenes/HardLevel1.unity
+    guid: 324e2432401a21f4bad893fbe2bebf2f
+  - enabled: 1
+    path: Assets/Scenes/HardLevel2.unity
+    guid: 073692497fc040844a57af8fe6595e92
+  - enabled: 1
+    path: Assets/Scenes/HardLevel3.unity
+    guid: 476dbb93244c0ef4c93648ebbe5b3897
   m_configObjects: {}
