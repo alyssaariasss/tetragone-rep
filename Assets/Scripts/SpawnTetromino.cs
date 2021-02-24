@@ -16,8 +16,8 @@ public class SpawnTetromino : MonoBehaviour
     private bool gameStarted = false;
 
     // fixed position of next block and hold block
-    private Vector2 previewBlockPos = new Vector2(14, 15);
-    private Vector2 savedBlockPos = new Vector2(-7, 15);
+    private Vector2 previewBlockPos = new Vector2(15, 14);
+    private Vector2 savedBlockPos = new Vector2(-7, 14);
 
     public int maxSwap = 3;
     private int swapCount = 0;

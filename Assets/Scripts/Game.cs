@@ -20,17 +20,62 @@ public class Game : MonoBehaviour
     public int scoreFourRow = 1000;
 
     private int currentScore = 0;
+    public int maxScore = 500;
 
     // for handling text display
     public Text canvasScore;
+    public Text canvasLines;
+    public Text canvasTime;
+
+    // for timer
+    public float timeLeft = 10;
+    public bool isDecreasing = false;
 
     // for tracking lines cleared 
     private int RowsCleared = 0;
+    private int currentLines = 0;
+
+    void Start()
+    {
+        isDecreasing = true;
+        Timer(timeLeft);
+    }
 
     void Update()
     {
         UpdateScore();
         UpdateUI();
+        if (timeLeft > 0)
+        {
+            timeLeft -= Time.deltaTime;
+            Timer(timeLeft);
+        }
+        else
+        {
+            if (currentScore < maxScore)
+            {
+                GameOver();
+                timeLeft = 0;
+                isDecreasing = false;
+            }
+            else if (currentScore >= maxScore)
+            {
+                // try lang 
+                SceneManager.LoadScene("EasyMode");
+            }
+            
+         
+        }
+    }
+
+    void Timer(float displayTime)
+    {
+        displayTime += 1; 
+
+        float minLeft = Mathf.FloorToInt(displayTime / 60);
+        float secLeft = Mathf.FloorToInt(displayTime % 60);
+
+        canvasTime.text = string.Format("{0:00}:{1:00}", minLeft, secLeft);
     }
 
     public void UpdateScore()
@@ -39,18 +84,22 @@ public class Game : MonoBehaviour
         {
             if (RowsCleared == 1)
             {
+                currentLines += 1;
                 currentScore += scoreOneRow;
             }
             else if (RowsCleared == 2)
             {
+                currentLines += 2;
                 currentScore += scoreTwoRow;
             }
             else if (RowsCleared == 3)
             {
+                currentLines += 3;
                 currentScore += scoreThreeRow;
             }
             else if (RowsCleared == 4) // max is 4 because the longest block == 4 lines
             {
+                currentLines += 4;
                 currentScore += scoreFourRow;
             }
             RowsCleared = 0;
@@ -61,6 +110,7 @@ public class Game : MonoBehaviour
     public void UpdateUI()
     {
         canvasScore.text = currentScore.ToString();
+        canvasLines.text = currentLines.ToString();
     }
 
     // checks if block is outside grid limits
