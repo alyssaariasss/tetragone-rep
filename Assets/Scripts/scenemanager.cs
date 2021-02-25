@@ -10,5 +10,16 @@ public class scenemanager : MonoBehaviour
     {
         SceneManager.LoadScene(scenetoload);
     }
+
+    public void Tutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Quit Game");
+    }
  
 }
