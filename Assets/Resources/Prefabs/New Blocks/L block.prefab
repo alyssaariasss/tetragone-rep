@@ -48,7 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallTime: 0.8
-  rotPoint: {x: 0, y: 0, z: 0}
+  verticalSpeed: 0.05
+  horizontalSpeed: 0.1
+  horizontalTimer: 0
+  rotPoint: {x: 1, y: 0, z: 0}
 --- !u!1 &3246230113498541915
 GameObject:
   m_ObjectHideFlags: 0

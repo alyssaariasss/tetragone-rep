@@ -19,8 +19,13 @@ public class Game : MonoBehaviour
     public int scoreThreeRow = 300;
     public int scoreFourRow = 1000;
 
+    // for tracking scores
     private int currentScore = 0;
-    public int maxScore = 500;
+
+    // for tracking lines cleared 
+    private int RowsCleared = 0;
+    private int currentLines = 0;
+    public int maxLines = 20;
 
     // for handling text display
     public Text canvasScore;
@@ -28,47 +33,55 @@ public class Game : MonoBehaviour
     public Text canvasTime;
 
     // for timer
-    public float timeLeft = 10;
+    public float timeLeft;
     public bool isDecreasing = false;
 
-    // for tracking lines cleared 
-    private int RowsCleared = 0;
-    private int currentLines = 0;
+    // for increasing difficulty
+    public float fallTime = 1.0f;
 
     void Start()
     {
-        isDecreasing = true;
-        Timer(timeLeft);
+        Timer(timeLeft-1);
     }
 
+    public void BeginGame()
+    {
+        isDecreasing = true;
+        Timer(timeLeft-1);
+    }
     void Update()
     {
         UpdateScore();
         UpdateUI();
-        if (timeLeft > 0)
-        {
-            timeLeft -= Time.deltaTime;
-            Timer(timeLeft);
-        }
-        else
-        {
-            if (currentScore < maxScore)
-            {
-                GameOver();
-                timeLeft = 0;
-                isDecreasing = false;
-            }
-            else if (currentScore >= maxScore)
-            {
-                // try lang 
-                SceneManager.LoadScene("EasyMode");
-            }
-            
-         
-        }
+        UpdateGame();
     }
 
-    void Timer(float displayTime)
+    void UpdateGame()
+    {
+        if (isDecreasing)
+        {
+            if (timeLeft > 0)
+            {
+                timeLeft -= Time.deltaTime;
+                Timer(timeLeft);
+            }
+            else
+            {
+                if (currentLines < maxLines)
+                {
+                    GameOver();
+                    timeLeft = 0;
+                    isDecreasing = false;
+                }
+                else if (currentLines >= maxLines)
+                {
+                    SwitchScenes();
+                }
+            }
+        }  
+    }
+
+    public void Timer(float displayTime)
     {
         displayTime += 1; 
 
@@ -145,6 +158,7 @@ public class Game : MonoBehaviour
     }
 
     // lines 98 to 140 are needed for deleting rows
+    // deletes x and y position of the block
     public void DeleteLine(int y)
     {
         for (int x = 0; x < width; ++x)
@@ -168,7 +182,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    // for loop to move ALL rows above a cleared line
+    // for loop to move down ALL rows above a cleared line
     public void MoveAllRows(int y)
     {
         for (int i = y; i < height; ++i)
@@ -196,14 +210,14 @@ public class Game : MonoBehaviour
     {
         for (int y = 0; y < height; ++y)
         {
-            // check x and y to update grid position
+            // checks x and y to update grid position
             for (int x = 0; x < width; ++x)
             {
                 if (grid[x, y] != null)
                 {
                     if (grid[x, y].parent == tetroblock.transform)
                     {
-                        // set grid values to null to remove them from array
+                        // sets grid values to null to remove them from array
                         grid[x, y] = null;
                     }
                 }
@@ -258,5 +272,48 @@ public class Game : MonoBehaviour
     public void GameOver()
     {
         SceneManager.LoadScene("GameOver");
+    }
+
+    public void SwitchScenes()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+
+        if (scene.name == "EasyLevel1")
+        {
+            SceneManager.LoadScene("EasyLevel2");
+        }
+        else if (scene.name == "EasyLevel2")
+        {
+            SceneManager.LoadScene("EasyLevel3");
+        }
+        else if (scene.name == "EasyLevel3")
+        {
+            SceneManager.LoadScene("MediumLevel1");
+        }
+        else if (scene.name == "MediumLevel1")
+        {
+            SceneManager.LoadScene("MediumLevel2");
+        }
+        else if (scene.name == "MediumLevel2")
+        {
+            SceneManager.LoadScene("MediumLevel3");
+        }
+        else if (scene.name == "MediumLevel3")
+        {
+            SceneManager.LoadScene("HardLevel1");
+        }
+        else if (scene.name == "HardLevel1")
+        {
+            SceneManager.LoadScene("HardLevel2");
+        }
+        else if (scene.name == "HardLevel2")
+        {
+            SceneManager.LoadScene("HardLevel3");
+        }
+        else if (scene.name == "HardLevel3")
+        {
+            // add dapat ng scene na completed the game. eto for trial lang
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }

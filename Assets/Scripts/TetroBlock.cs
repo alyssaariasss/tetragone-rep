@@ -5,7 +5,7 @@ using UnityEngine;
 public class TetroBlock : MonoBehaviour
 {
     private float prevTime;
-    public float fallTime = 0.8f;
+    public float fallTime;
 
     // for smooth user controls
     public float verticalSpeed = 0.05f;
@@ -19,7 +19,7 @@ public class TetroBlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        fallTime = GameObject.Find("GameScript").GetComponent<Game>().fallTime;
     }
 
     // Update is called once per frame

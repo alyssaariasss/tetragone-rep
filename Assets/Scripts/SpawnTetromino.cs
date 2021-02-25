@@ -25,7 +25,7 @@ public class SpawnTetromino : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        NewTetromino();
+        FindObjectOfType<Countdown>().StartCountdown();
     }
 
     public void NewTetromino()
