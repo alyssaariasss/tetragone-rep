@@ -277,6 +277,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1429951385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bebe447ec84bb4429e982161ae70692, type: 3}
+  m_Script: {fileID: 11500000, guid: 82349410b0caf644fa2ed7a7d550f3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayBeforeLoading: 32
+  scenetoload: Tutorial
