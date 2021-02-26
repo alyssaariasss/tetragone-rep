@@ -126,6 +126,20 @@ public class Game : MonoBehaviour
         canvasLines.text = currentLines.ToString();
     }
 
+    public int SetNewHeight()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "MediumLevel1" || scene.name == "MediumLevel2" || scene.name == "MediumLevel3")
+        {
+            return height = 16;
+        }
+        else if (scene.name == "HardLevel1" || scene.name == "HardLevel2" || scene.name == "HardLevel3")
+        {
+            return height = 13;
+        }
+        return height = 20;
+    }
+
     // checks if block is outside grid limits
     public bool IsAboveGrid(TetroBlock tetroblock)
     {
@@ -133,6 +147,7 @@ public class Game : MonoBehaviour
         {
             foreach (Transform block in tetroblock.transform)
             {
+                SetNewHeight();
                 Vector2 pos = Round(block.position);
                 if (pos.y > height - 1)
                 {
@@ -194,6 +209,8 @@ public class Game : MonoBehaviour
     // main method called in TetroBlock to start deleting rows
     public void DeleteRow()
     {
+        SetNewHeight();
+
         for (int y = 0; y < height; ++y)
         {
             if (IsFullRow(y))
@@ -208,6 +225,7 @@ public class Game : MonoBehaviour
     // takes position of each block in main program to update the grid array 
     public void UpdateGrid(TetroBlock tetroblock)
     {
+        SetNewHeight();
         for (int y = 0; y < height; ++y)
         {
             // checks x and y to update grid position
@@ -237,6 +255,8 @@ public class Game : MonoBehaviour
     // gets transform position of block to limit overlapping
     public Transform GetTransformAtGrid(Vector2 pos)
     {
+        SetNewHeight();
+
         if (pos.y > height - 1)
             return null;
         else

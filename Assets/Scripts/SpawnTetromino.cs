@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnTetromino : MonoBehaviour
 {
@@ -30,6 +31,9 @@ public class SpawnTetromino : MonoBehaviour
 
     public void NewTetromino()
     {
+        SetNewPrevPos();
+        SetNewHeight();
+
         if (!gameStarted)
         {
             gameStarted = true;
@@ -41,7 +45,7 @@ public class SpawnTetromino : MonoBehaviour
         }
         else
         {
-            previewBlock.transform.localPosition = new Vector2(4.0f, 20.0f);
+            SetNewSpawnPos();
             nextBlock = previewBlock;
             nextBlock.GetComponent<TetroBlock>().enabled = true;
             nextBlock.tag = "activeBlock";
@@ -55,6 +59,9 @@ public class SpawnTetromino : MonoBehaviour
     public void SaveBlock(Transform t)
     {
         swapCount++;
+        SetNewSavedPos();
+        SetNewHeight();
+
         if (swapCount > maxSwap)
             return;
 
@@ -70,6 +77,7 @@ public class SpawnTetromino : MonoBehaviour
             }
             savedBlock = (GameObject)Instantiate(t.gameObject);
             savedBlock.GetComponent<TetroBlock>().enabled = false;
+
             savedBlock.transform.localPosition = savedBlockPos;
             savedBlock.tag = "savedBlock";
 
@@ -92,5 +100,61 @@ public class SpawnTetromino : MonoBehaviour
 
             NewTetromino();
         }
+    }
+
+    public int SetNewHeight()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "MediumLevel1" || scene.name == "MediumLevel2" || scene.name == "MediumLevel3")
+        {
+            return height = 16;
+        }
+        else if (scene.name == "HardLevel1" || scene.name == "HardLevel2" || scene.name == "HardLevel3")
+        {
+            return height = 13;
+        }
+        return height = 20;
+    }
+
+    public Vector2 SetNewSpawnPos()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "MediumLevel1" || scene.name == "MediumLevel2" || scene.name == "MediumLevel3")
+        {
+            return previewBlock.transform.localPosition = new Vector2(4, 16.0f);
+        }
+        else if (scene.name == "HardLevel1" || scene.name == "HardLevel2" || scene.name == "HardLevel3")
+        {
+            return previewBlock.transform.localPosition = new Vector2(4, 13.0f);
+        }
+        return previewBlock.transform.localPosition = new Vector2(4, 19.0f);
+    }
+
+    public Vector2 SetNewPrevPos()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "MediumLevel1" || scene.name == "MediumLevel2" || scene.name == "MediumLevel3")
+        {
+            return previewBlockPos = new Vector2(15, 11);
+        }
+        else if (scene.name == "HardLevel1" || scene.name == "HardLevel2" || scene.name == "HardLevel3")
+        {
+            return previewBlockPos = new Vector2(15, 8);
+        }
+        return previewBlockPos = new Vector2(15, 14);
+    }
+
+    public Vector2 SetNewSavedPos()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "MediumLevel1" || scene.name == "MediumLevel2" || scene.name == "MediumLevel3")
+        {
+            return savedBlockPos = new Vector2(-7, 11);
+        }
+        else if (scene.name == "HardLevel1" || scene.name == "HardLevel2" || scene.name == "HardLevel3")
+        {
+            return savedBlockPos = new Vector2(-7, 8);
+        }
+        return savedBlockPos = new Vector2(-7, 14);
     }
 }

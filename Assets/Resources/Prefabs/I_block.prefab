@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 6639667209817738896}
   - component: {fileID: 926394308105917476}
   m_Layer: 0
-  m_Name: 'I block '
+  m_Name: I_block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,6 +291,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallTime: 0.8
+  verticalSpeed: 0.05
+  horizontalSpeed: 0.1
+  horizontalTimer: 0
   rotPoint: {x: 0.5, y: 0.5, z: 0}
 --- !u!1 &8208349429891155690
 GameObject:
