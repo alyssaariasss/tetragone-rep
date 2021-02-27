@@ -60,6 +60,12 @@ EditorBuildSettings:
     path: Assets/Scenes/HardLevel2.unity
     guid: 073692497fc040844a57af8fe6595e92
   - enabled: 1
+    path: Assets/Scenes/About.unity
+    guid: 99873abc8812e1143a7376ce819f8370
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 11bdb36aa33345948a7c31ae0160d062
+  - enabled: 1
     path: Assets/Scenes/HardLevel3.unity
     guid: 476dbb93244c0ef4c93648ebbe5b3897
   m_configObjects: {}
