@@ -25,6 +25,7 @@ public class Countdown : MonoBehaviour
 
         FindObjectOfType<Game>().BeginGame();
         FindObjectOfType<SpawnTetromino>().NewTetromino();
+        FindObjectOfType<AudioManager>().PlayAudio();
 
         yield return new WaitForSeconds(1f);
         canvasCountdown.gameObject.SetActive(false);

@@ -14,11 +14,15 @@ public class TetroBlock : MonoBehaviour
     private float verticalTimer = 0;
     public float horizontalTimer = 0;
 
+    public AudioClip blockSound;
+    private AudioSource audioSource;
+
     public Vector3 rotPoint;
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         fallTime = GameObject.Find("GameScript").GetComponent<Game>().fallTime;
     }
 
@@ -28,6 +32,11 @@ public class TetroBlock : MonoBehaviour
         CheckUserInput();
     }
 
+    void PlayBlockSound()
+    {
+        audioSource.PlayOneShot(blockSound);
+    }
+
     void CheckUserInput()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
@@ -35,6 +44,7 @@ public class TetroBlock : MonoBehaviour
             transform.position += new Vector3(-1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(-1, 0, 0);
+            PlayBlockSound();
         }
 
         else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
@@ -42,6 +52,7 @@ public class TetroBlock : MonoBehaviour
             transform.position += new Vector3(1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(1, 0, 0);
+            PlayBlockSound();
         }
 
         else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
@@ -85,6 +96,11 @@ public class TetroBlock : MonoBehaviour
             else
             {
                 FindObjectOfType<Game>().UpdateGrid(this);
+                if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+                {
+                    PlayBlockSound();
+                }
+                
             }
             prevTime = Time.time;
         }

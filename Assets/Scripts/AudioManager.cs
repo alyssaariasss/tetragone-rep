@@ -3,17 +3,19 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    AudioSource myAudio;
+    public AudioClip bgMusic;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     public void Start()
     {
-        myAudio = GetComponent<AudioSource>();
-        Invoke("playAudio", 5.0f);
+        audioSource = GetComponent<AudioSource>();
     }
 
-    public void playAudio()
+    public void PlayAudio()
     {
-        myAudio.Play();
+        audioSource.loop = true;
+        audioSource.clip = bgMusic;
+        audioSource.Play();
     }
 }
