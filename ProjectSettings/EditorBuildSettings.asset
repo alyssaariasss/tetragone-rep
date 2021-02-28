@@ -68,4 +68,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HardLevel3.unity
     guid: 476dbb93244c0ef4c93648ebbe5b3897
+  - enabled: 1
+    path: Assets/Scenes/GameComplete.unity
+    guid: 95ac1919c15d51240aaab1d5e90a1746
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: 75fa48f03a62702479c298af6da1b663
+  - enabled: 1
+    path: Assets/Scenes/WinScreen1.unity
+    guid: 97c5652a51f2893489bf0d52521c8341
+  - enabled: 1
+    path: Assets/Scenes/WinScreen2.unity
+    guid: 245e79422cc4b0249a12a4dcfd53c85b
   m_configObjects: {}

@@ -6044,7 +6044,7 @@ MonoBehaviour:
   scoreTwoRow: 100
   scoreThreeRow: 300
   scoreFourRow: 1000
-  maxLines: 6
+  maxLines: 9
   canvasScore: {fileID: 1292884814}
   canvasLines: {fileID: 201678993}
   canvasTime: {fileID: 927328744}

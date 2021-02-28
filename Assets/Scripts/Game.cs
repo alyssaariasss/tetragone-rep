@@ -39,6 +39,8 @@ public class Game : MonoBehaviour
     // for increasing difficulty
     public float fallTime = 1.0f;
 
+  
+
     void Start()
     {
         Timer(timeLeft-1);
@@ -308,7 +310,7 @@ public class Game : MonoBehaviour
         }
         else if (scene.name == "EasyLevel3")
         {
-            SceneManager.LoadScene("MediumLevel1");
+            SceneManager.LoadScene("WinScreen");
         }
         else if (scene.name == "MediumLevel1")
         {
@@ -320,7 +322,7 @@ public class Game : MonoBehaviour
         }
         else if (scene.name == "MediumLevel3")
         {
-            SceneManager.LoadScene("HardLevel1");
+            SceneManager.LoadScene("WinScreen1");
         }
         else if (scene.name == "HardLevel1")
         {
@@ -332,8 +334,7 @@ public class Game : MonoBehaviour
         }
         else if (scene.name == "HardLevel3")
         {
-            // add dapat ng scene na completed the game. eto for trial lang
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("WinScreen2");
         }
     }
 }
