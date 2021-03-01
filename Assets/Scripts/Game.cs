@@ -39,8 +39,6 @@ public class Game : MonoBehaviour
     // for increasing difficulty
     public float fallTime = 1.0f;
 
-  
-
     void Start()
     {
         Timer(timeLeft-1);

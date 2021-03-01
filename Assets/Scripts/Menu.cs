@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    public void PlayAgain()
+    public AudioSource audioSource;
+    private void Start()
     {
-        SceneManager.LoadScene("Level");
+        audioSource.volume = PlayerPrefs.GetFloat("MusicVolume");
     }
 }
