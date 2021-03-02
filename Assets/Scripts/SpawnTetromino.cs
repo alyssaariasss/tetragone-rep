@@ -135,13 +135,13 @@ public class SpawnTetromino : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         if (scene.name == "MediumLevel1" || scene.name == "MediumLevel2" || scene.name == "MediumLevel3")
         {
-            return previewBlockPos = new Vector2(15.5f, 9.5f);
+            return previewBlockPos = new Vector2(16.63f, 9.46f);
         }
         else if (scene.name == "HardLevel1" || scene.name == "HardLevel2" || scene.name == "HardLevel3")
         {
-            return previewBlockPos = new Vector2(15.5f, 6.5f);
+            return previewBlockPos = new Vector2(16.54877f, 6.231253f);
         }
-        return previewBlockPos = new Vector2(15.58f, 12.27f);
+        return previewBlockPos = new Vector2(16.84f, 12.5f);
     }
 
     public Vector2 SetNewSavedPos()
@@ -149,12 +149,12 @@ public class SpawnTetromino : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         if (scene.name == "MediumLevel1" || scene.name == "MediumLevel2" || scene.name == "MediumLevel3")
         {
-            return savedBlockPos = new Vector2(-7.937702f, 12.27917f);
+            return savedBlockPos = new Vector2(-8.2f, 11.8f);
         }
         else if (scene.name == "HardLevel1" || scene.name == "HardLevel2" || scene.name == "HardLevel3")
         {
-            return savedBlockPos = new Vector2(-7.5f, 9.5f);
+            return savedBlockPos = new Vector2(-8.15f, 8.93f);
         }
-        return savedBlockPos = new Vector2(-7.491909f, 15.23486f);
+        return savedBlockPos = new Vector2(-8.5f, 15.67f);
     }
 }

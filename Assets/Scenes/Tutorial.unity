@@ -581,7 +581,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 30cba1bc4f24ea04695353c86bdc58db, type: 3}
-    m_FontSize: 40
+    m_FontSize: 42
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 6
@@ -637,8 +637,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 351.70947, y: -180.53743}
-  m_SizeDelta: {x: 352.7202, y: 89.76807}
+  m_AnchoredPosition: {x: 355, y: -173}
+  m_SizeDelta: {x: 320.62268, y: 98.93883}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1850075618
 MonoBehaviour:
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 1873742883}
   - component: {fileID: 1873742882}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -787,7 +787,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1c77bd187ee568543bc3135156839797, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7cd36f9de6d865d489cb1d61dffbac7f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
